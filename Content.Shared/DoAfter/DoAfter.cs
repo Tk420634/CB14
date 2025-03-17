@@ -1,3 +1,4 @@
+
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
@@ -81,6 +82,12 @@ public sealed partial class DoAfter
     public DoAfter(ushort index, DoAfterArgs args, TimeSpan startTime)
     {
         Index = index;
+
+        if (args.Target == null)
+        {
+            DebugTools.Assert(!args.BreakOnTargetMove);
+            args.BreakOnTargetMove = false;
+        }
 
         Args = args;
         StartTime = startTime;

@@ -135,7 +135,6 @@
       traits:
         - Sluggish
         - SnailPaced
-        - BadKnees
     - !type:CharacterSpeciesRequirement
       inverted: true
       species:
@@ -144,12 +143,10 @@
     - !type:TraitReplaceComponent
       components:
         - type: ClimbDelayModifier
-          climbDelayMultiplier: 0.5
-        - type: SlippableModifier
-          paralyzeTimeMultiplier: 0.7
-        - type: SpeedModifiedByContactModifier
-          walkModifierEffectiveness: 0.5
-          sprintModifierEffectiveness: 0.5
+          climbDelayMultiplier: 0.35
+        - type: LayingDownModifier
+          layingDownCooldownMultiplier: 0.5
+          downedSpeedMultiplierMultiplier: 1.65
 
 - type: trait
   id: LightStep
@@ -166,7 +163,6 @@
       inverted: true
       species:
         - Felinid
-        - Tajaran
 
 - type: trait
   id: Singer
@@ -177,88 +173,89 @@
       inverted: true
       species:
         - Harpy
+        - IPC # Floof - M3739 - Audio Player trait is the IPC equivalent of this. Silicons are built different.
   functions:
     - !type:TraitAddComponent
       components:
         - type: Singer
           proto: NormalSinger
 
-# - type: trait
-  # id: LatentPsychic
-  # category: Mental
-  # points: -4
-  # functions:
-    # - !type:TraitAddComponent
-      # components:
-        # - type: Psionic
-  # requirements:
-    # - !type:CharacterJobRequirement
-      # inverted: true
-      # jobs:
-        # - Borg
-        # - MedicalBorg
-        # - ResearchDirector
-        # - ForensicMantis
-        # - Chaplain
-        # - Librarian
-    # - !type:CharacterLogicOrRequirement
-      # requirements:
-        # - !type:CharacterSpeciesRequirement
-          # inverted: true
-          # species:
-            # - IPC
-        # - !type:CharacterTraitRequirement
-          # traits:
-            # - AnomalousPositronics
-    # - !type:CharacterLogicOrRequirement
-      # requirements:
-        # - !type:CharacterSpeciesRequirement
-          # inverted: true
-          # species:
-            # - Shadowkin
-    # - !type:CharacterTraitRequirement
-      # inverted: true
-      # traits:
-        # - PsionicInsulation
+- type: trait
+  id: LatentPsychic
+  category: Mental
+  points: -4
+  functions:
+    - !type:TraitAddComponent
+      components:
+        - type: Psionic
+  requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+        - Borg
+        - MedicalBorg
+        - ResearchDirector
+        - ForensicMantis
+        - Chaplain
+        - Librarian
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterSpeciesRequirement
+          inverted: true
+          species:
+            - IPC
+        - !type:CharacterTraitRequirement
+          traits:
+            - AnomalousPositronics
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterSpeciesRequirement
+          inverted: true
+          species:
+            - Shadowkin
+    - !type:CharacterTraitRequirement
+      inverted: true
+      traits:
+        - PsionicInsulation
 
-# - type: trait
-  # id: PsionicInsulation
-  # category: Mental
-  # points: -10 #Buy a significant disability to get this.
-  # functions:
-    # - !type:TraitAddComponent
-      # components:
-        # - type: PsionicInsulation
-        # - type: Mindbroken
-  # requirements:
-    # - !type:CharacterJobRequirement
-      # inverted: true
-      # jobs:
-        # - Borg
-        # - MedicalBorg
-        # - ResearchDirector
-        # - ForensicMantis
-        # - Chaplain
-        # - Librarian
-    # - !type:CharacterLogicOrRequirement
-      # requirements:
-        # - !type:CharacterSpeciesRequirement
-          # inverted: true
-          # species:
-            # - IPC
-        # - !type:CharacterTraitRequirement
-          # traits:
-            # - AnomalousPositronics
-    # - !type:CharacterTraitRequirement
-      # inverted: true
-      # traits:
-        # - LatentPsychic
-    # - !type:CharacterLogicOrRequirement
-      # requirements:
-        # - !type:CharacterSpeciesRequirement
-          # inverted: true
-          # species:
-            # - Shadowkin
+- type: trait
+  id: PsionicInsulation
+  category: Mental
+  points: -8 #Buy a significant disability to get this.
+  functions:
+    - !type:TraitAddComponent
+      components:
+        - type: PsionicInsulation
+        - type: Mindbroken
+  requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+        - Borg
+        - MedicalBorg
+        - ResearchDirector
+        - ForensicMantis
+        - Chaplain
+        - Librarian
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterSpeciesRequirement
+          inverted: true
+          species:
+            - IPC
+        - !type:CharacterTraitRequirement
+          traits:
+            - AnomalousPositronics
+    - !type:CharacterTraitRequirement
+      inverted: true
+      traits:
+        - LatentPsychic
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterSpeciesRequirement
+          inverted: true
+          species:
+            - Shadowkin
 
 - type: trait
   id: NaturalTelepath
@@ -269,28 +266,35 @@
       psionicPowers:
         - TelepathyPower
   requirements:
-    # - !type:CharacterJobRequirement
-      # inverted: true
-      # jobs:
-        # - ResearchDirector
-        # - ForensicMantis
-    # - !type:CharacterLogicOrRequirement
-      # requirements:
-        # - !type:CharacterTraitRequirement
-          # traits:
-            # - LatentPsychic
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+        - ResearchDirector
+        - ForensicMantis
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterTraitRequirement
+          traits:
+            - LatentPsychic
         - !type:CharacterJobRequirement
           jobs:
-            - TribalElder
-    # - !type:CharacterLogicOrRequirement
-      # requirements:
-        # - !type:CharacterSpeciesRequirement
-          # inverted: true
-          # species:
-            # - IPC
-        # - !type:CharacterTraitRequirement
-          # traits:
-            # - AnomalousPositronics
+            - Chaplain
+            - Librarian
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterSpeciesRequirement
+          inverted: true
+          species:
+            - IPC
+        - !type:CharacterTraitRequirement
+          traits:
+            - AnomalousPositronics
+    - !type:CharacterLogicOrRequirement
+      requirements:
+        - !type:CharacterSpeciesRequirement
+          inverted: true
+          species:
+            - Shadowkin
 
 - type: trait
   id: TrapAvoider
@@ -311,8 +315,8 @@
       inverted: true
       species:
         - Felinid
-        - Tajaran
         - Harpy
+        - Rodentia # Floof - Rodentia
 
 - type: trait
   id: AnomalousPositronics

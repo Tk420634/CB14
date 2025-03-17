@@ -3,7 +3,7 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared.DoAfter;
 
-[Serializable, NetSerializable]
+[Serializable, NetSerializable,]
 [DataDefinition]
 public sealed partial class DoAfterArgs
 {
@@ -103,6 +103,12 @@ public sealed partial class DoAfterArgs
     public bool BreakOnHandChange = true;
 
     /// <summary>
+    ///     If do_after stops when the user moves
+    /// </summary>
+    [DataField("breakOnUserMove")]
+    public bool BreakOnUserMove;
+
+    /// <summary>
     ///     Whether the do-after should get interrupted if we drop the
     ///     active item we started the do-after with
     ///     This does nothing if <see cref="NeedHand"/> is false.
@@ -122,6 +128,12 @@ public sealed partial class DoAfterArgs
     /// </summary>
     [DataField]
     public bool BreakOnWeightlessMove = true;
+
+    /// <summary>
+    ///     If do_after stops when the target moves (if there is a target)
+    /// </summary>
+    [DataField("breakOnTargetMove")]
+    public bool BreakOnTargetMove;
 
     /// <summary>
     ///     Threshold for user and target movement
@@ -212,7 +224,8 @@ public sealed partial class DoAfterArgs
         EntityUid? eventTarget,
         EntityUid? target = null,
         EntityUid? used = null,
-        EntityUid? showTo = null) // Goobstation - Show doAfter popup to another entity
+        EntityUid? showTo = null
+    ) // Goobstation - Show doAfter popup to another entity
     {
         User = user;
         Delay = delay;
@@ -265,6 +278,8 @@ public sealed partial class DoAfterArgs
         BreakOnHandChange = other.BreakOnHandChange;
         BreakOnDropItem = other.BreakOnDropItem;
         BreakOnMove = other.BreakOnMove;
+        BreakOnTargetMove = other.BreakOnTargetMove;
+        BreakOnUserMove = other.BreakOnUserMove;
         BreakOnWeightlessMove = other.BreakOnWeightlessMove;
         MovementThreshold = other.MovementThreshold;
         DistanceThreshold = other.DistanceThreshold;

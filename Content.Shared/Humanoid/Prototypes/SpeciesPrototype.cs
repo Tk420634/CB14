@@ -79,7 +79,7 @@ public sealed partial class SpeciesPrototype : IPrototype
     /// Allow Custom Specie Name for this Specie.
     /// </summary>
     [DataField]
-    public Boolean CustomName { get; private set; } = false;
+    public Boolean CustomName { get; private set; } = true;
 
     /// <summary>
     /// Method of skin coloration used by the species.
@@ -193,4 +193,5 @@ public enum SpeciesNaming : byte
     TheFirstofLast,
     FirstDashLast,
     FirstRoman,
+    LastFirst, // DeltaV for rodentia
 }
