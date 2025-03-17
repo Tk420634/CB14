@@ -1,6 +1,7 @@
 using Content.Server.Damage.Systems;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Popups;
+using Content.Shared.Abilities;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mousetrap;
 using Content.Shared.StepTrigger.Systems;
@@ -35,6 +36,10 @@ public sealed class MousetrapSystem : EntitySystem
 
     private void OnStepTriggerAttempt(EntityUid uid, MousetrapComponent component, ref StepTriggerAttemptEvent args)
     {
+        // DeltaV: Entities with this component always trigger mouse traps, even if wearing shoes
+        if (HasComp<AlwaysTriggerMousetrapComponent>(args.Tripper))
+            args.Cancelled = false;
+
         args.Continue |= component.IsActive;
     }
 
@@ -48,7 +53,7 @@ public sealed class MousetrapSystem : EntitySystem
         // Small - big damage,
         // Large - small damage
         // Yes, I punched numbers into a calculator until the graph looked right
-        var scaledDamage = -50 * MathF.Atan(physics.Mass - component.MassBalance) + 25 * MathF.PI;
+        var scaledDamage = -30 * MathF.Atan((physics.Mass - component.MassBalance) / 4) + 15 * MathF.PI; // Floof - rebalanced
         args.Damage *= scaledDamage;
     }
 
